@@ -106,7 +106,6 @@ const InputContainer = styled.div`
 
 const SendForm = styled.form`
   display: flex;
-  align-items: center;
 `;
 
 const FooterSection = styled.div`

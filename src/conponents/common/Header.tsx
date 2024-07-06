@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 const HeaderContainer = styled.div`
   position: fixed;
+  z-index: 999;
   top: 50px;
   left: 50%;
   right: 50%;
