@@ -2,6 +2,8 @@ import Header from "./conponents/common/Header";
 import Footer from "./conponents/common/Footer";
 import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
+import DropupMenu from "./conponents/common/DropupMenu";
+
 function App() {
   return (
     <>
@@ -12,6 +14,7 @@ function App() {
         ))}
       </Routes>
       <Footer></Footer>
+      <DropupMenu></DropupMenu>
     </>
   );
 }
