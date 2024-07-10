@@ -3,6 +3,7 @@ import { INav } from "@/interface/nav";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import Logo from "./Logo";
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -62,24 +63,7 @@ function Header() {
             <NavItem key={option.name}>
               <StyledNavLink to={option.link}>{option.name}</StyledNavLink>
             </NavItem>
-            {index === 2 && (
-              <div
-                key="logo"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "white",
-                  borderRadius: "30px",
-                }}
-              >
-                <img
-                  className="h-6 object-cover lg bg-white"
-                  src="/src/assets/icon/Untitled.svg"
-                  alt=""
-                />
-              </div>
-            )}
+            {index === 2 && <Logo hidden={true}></Logo>}
           </React.Fragment>
         ))}
       </NavList>

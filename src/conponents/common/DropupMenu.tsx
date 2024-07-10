@@ -1,3 +1,4 @@
+import { IconProps } from "@/interface/settingIcon";
 import { ArrowUp, Globe, Settings, Sun } from "lucide-react";
 import { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
@@ -33,7 +34,13 @@ const DropupContent = styled.div`
 `;
 
 const StyledButton = styled.button`
-  background-color: white;
+  background: rgb(2, 0, 36);
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 24%,
+    rgba(0, 212, 255, 1) 100%
+  );
   display: flex;
   padding: 2px;
   border-radius: 50%;
@@ -43,7 +50,7 @@ const StyledButton = styled.button`
   color: black;
 `;
 
-const SettingsIcon = styled(Settings)`
+const SettingsIcon = styled(Settings)<IconProps>`
   background-color: #fd853a;
   color: white;
   cursor: pointer;
@@ -58,13 +65,13 @@ const SettingsIcon = styled(Settings)`
     #fa7199,
     #e85a19
   );
-  ${({ isOpen }: { isOpen: boolean }) =>
+  ${({ isOpen }) =>
     isOpen &&
     css`
       animation: ${rotate} 0.7s linear infinite;
     `}
 
-  ${({ isHovered }: { isHovered: boolean }) =>
+  ${({ isHovered }) =>
     isHovered &&
     css`
       animation: ${rotate} 0.7s linear infinite;
@@ -100,13 +107,13 @@ function DropupMenu() {
           onMouseLeave={() => setIsOpen(false)}
         >
           <StyledButton>
-            <Globe size={34} color="blue" fill="white" />
+            <Globe size={34} color="white" />
           </StyledButton>
           <StyledButton>
-            <Sun size={34} color="orange" fill="white" />
+            <Sun size={34} color="orange" />
           </StyledButton>
           <StyledButton>
-            <ArrowUp size={34} color="black" fill="white" />
+            <ArrowUp size={34} color="white" />
           </StyledButton>
         </DropupContent>
       )}

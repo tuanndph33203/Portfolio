@@ -169,7 +169,7 @@ function Footer() {
         </FooterTop>
         <FooterCenter>
           <FooterAside>
-            <Logo />
+            <Logo hidden={false} />
             <FooterDes>
               I'm always excited to connect with fellow developers, potential
               clients, and anyone interested in my work. Feel free to reach out
