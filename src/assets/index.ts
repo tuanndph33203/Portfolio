@@ -5,6 +5,10 @@ import BannerAuthor from "./banner/author.png";
 
 import LogoAuthor from "./icon/Untitled.svg";
 import Hello from "./icon/hello.svg";
+
+import UiUxS1Home from "./banner/UI-UX/s1-home.png";
+import UiUxS2Home from "./banner/UI-UX/s1-products.png";
+
 export {
   BackgroudBanner,
   BannerEffect1,
@@ -12,4 +16,6 @@ export {
   BannerAuthor,
   LogoAuthor,
   Hello,
+  UiUxS1Home,
+  UiUxS2Home,
 };

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import CardBanner from "./Card/CardService";
 import { BannerEffect1 } from "@/assets";
+import { banner } from "@/common/constants";
+import { IBaner } from "@/common/interface";
 
 const ContainerBanner = styled.div`
   width: 100%;
@@ -79,9 +81,14 @@ const Banner = () => {
           </span>
         </Header>
         <Main>
-          <CardBanner title={"UI/UX Design"}></CardBanner>
-          <CardBanner title={"Web Design"}></CardBanner>
-          <CardBanner title={"Landing Design"}></CardBanner>
+          {banner &&
+            banner.map((item: IBaner, index: number) => (
+              <CardBanner
+                key={index}
+                title={item.title}
+                cards={item.cards}
+              ></CardBanner>
+            ))}
         </Main>
       </ContentContainer>
     </ContainerBanner>

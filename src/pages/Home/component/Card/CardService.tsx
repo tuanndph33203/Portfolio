@@ -2,6 +2,7 @@ import styled from "styled-components";
 import CardServiceTitle from "./_component/CartServiceTitle";
 import CardServiceContent from "./_component/CardServiceContent";
 import CardServiceButton from "./_component/CardServiceButton";
+import { IBannerItem } from "@/common/interface";
 export const HiddenCard = styled.div`
   width: 150px;
   height: 150px;
@@ -100,13 +101,19 @@ const CardOpacity = styled.div`
   z-index: -1;
 `;
 
-const CardBanner = ({ title }: { title: string }) => {
+const CardBanner = ({
+  title,
+  cards,
+}: {
+  title: string;
+  cards: IBannerItem[];
+}) => {
   return (
     <Container>
       <Card>
         <CardOpacity />
         <CardServiceTitle>{title}</CardServiceTitle>
-        <CardServiceContent></CardServiceContent>
+        <CardServiceContent cards={cards}></CardServiceContent>
       </Card>
       <HiddenCard>
         <CardServiceButton></CardServiceButton>

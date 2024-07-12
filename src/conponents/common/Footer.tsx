@@ -4,8 +4,8 @@ import styled from "styled-components";
 import Container from "../Container";
 import { NavLink } from "react-router-dom";
 import Logo from "./Logo";
-import { nav } from "@/constants/nav";
-import { INav } from "@/interface/nav";
+import { nav } from "@/common/constants/nav";
+import { INav } from "@/common/interface/nav";
 
 const FooterContainer = styled.footer`
   background-color: #171717;

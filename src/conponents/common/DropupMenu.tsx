@@ -1,4 +1,4 @@
-import { IconProps } from "@/interface/settingIcon";
+import { IconProps } from "@/common/interface/settingIcon";
 import { ArrowUp, Globe, Settings, Sun } from "lucide-react";
 import { useState } from "react";
 import styled, { keyframes, css } from "styled-components";

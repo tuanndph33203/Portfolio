@@ -1,5 +1,5 @@
-import { nav } from "@/constants/nav";
-import { INav } from "@/interface/nav";
+import { nav } from "@/common/constants/nav";
+import { INav } from "@/common/interface/nav";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";

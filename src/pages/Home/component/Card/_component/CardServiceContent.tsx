@@ -1,3 +1,4 @@
+import { IBannerItem } from "@/common/interface";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -8,9 +9,8 @@ const CardContent = styled.div`
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
-  .all {
-  }
 `;
+
 const CardContainer = styled.div<{ isHovered: boolean }>`
   margin-top: 20px;
   display: flex;
@@ -29,75 +29,77 @@ const CardContainer = styled.div<{ isHovered: boolean }>`
       transform: perspective(10000px) rotateX(0deg);
     `}
 `;
-const Card = styled.div`
+
+const Card = styled.div<{ isHovered: boolean }>`
   width: 200px;
   height: 300px;
   margin: 0 10px;
   transform-style: preserve-3d;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid #fff;
   box-shadow: 0 0 20px 5px rgba(100, 100, 255, 0.4);
   opacity: 1;
   transition: all 0.3s ease;
   position: relative;
-  background-position: center center;
-  background-size: contain;
-  background-repeat: no-repeat;
   background-color: #58d;
   cursor: pointer;
   background-blend-mode: color-burn;
-
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   &:hover {
     box-shadow: 0 0 30px 10px rgba(100, 100, 255, 0.6);
     background-color: #ccf;
   }
-
-  .explainer {
-    font-weight: 300;
-    font-size: 1.5rem;
-    color: #fff;
-    transition: all 0.6s ease;
-    width: 100%;
-    height: 100%;
-    background-color: #303050;
-    background-image: radial-gradient(circle at center top, #cce, #33a);
-    border-radius: 10px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `;
 
-const CardServiceContent = () => {
+const MainImage = styled.img<{ isHovered: boolean }>`
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.3s ease;
+  opacity: ${(props) => (props.isHovered ? 0 : 1)};
+`;
+
+const SecondaryImage = styled.img<{ isHovered: boolean }>`
+  width: 100%;
+  height: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease;
+  opacity: ${(props) => (props.isHovered ? 1 : 0)};
+`;
+
+const CardServiceContent = ({ cards }: { cards: IBannerItem[] }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <CardContent
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <CardContainer isHovered={isHovered}>
-        <Card>
-          <div className="explainer">
-            <span>Hover me</span>
-          </div>
-        </Card>
-        <Card>
-          <div className="explainer">
-            <span>Hover me</span>
-          </div>
-        </Card>
-        <Card>
-          <div className="explainer">
-            <span>Hover me</span>
-          </div>
-        </Card>
-        <Card>
-          <div className="explainer">
-            <span>Hover me</span>
-          </div>
-        </Card>
+    <CardContent>
+      <CardContainer
+        isHovered={isHovered}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {cards &&
+          cards.map((card) => (
+            <Card key={card.title} isHovered={isHovered}>
+              <MainImage
+                src={card.main}
+                alt={card.title}
+                isHovered={isHovered}
+              />
+              <SecondaryImage
+                src={card.secondary}
+                alt={card.title}
+                isHovered={isHovered}
+              />
+            </Card>
+          ))}
       </CardContainer>
     </CardContent>
   );
