@@ -1,26 +1,32 @@
 export const nav = [
   {
-    name: "Home",
-    link: "/",
+    name: 'Home',
+    link: '/',
+    element : 'home'
   },
   {
-    name: "Contact",
-    link: "/contact",
+    name: 'Service',
+    link: '/service',
+    element : 'service'
   },
   {
-    name: "Service",
-    link: "/service",
+    name: 'Contact',
+    link: '/contact',
+    element : 'contact'
   },
   {
-    name: "Resume",
-    link: "/resume",
+    name: 'Resume',
+    link: '/resume',
+    element : 'resume'
   },
   {
-    name: "Project",
-    link: "/project",
+    name: 'Project',
+    link: '/project',
+    element : 'project'
   },
   {
-    name: "About",
-    link: "/about",
+    name: 'About',
+    link: '/about',
+    element : 'about'
   },
 ];

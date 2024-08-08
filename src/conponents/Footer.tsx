@@ -1,11 +1,12 @@
-import { MoveUpRight } from "lucide-react";
-import { useState } from "react";
-import styled from "styled-components";
-import Container from "../Container";
-import { NavLink } from "react-router-dom";
-import Logo from "./Logo";
-import { nav } from "@/common/constants/nav";
-import { INav } from "@/common/interface/nav";
+import { MoveUpRight } from 'lucide-react';
+import { useState } from 'react';
+import styled from 'styled-components';
+
+import { NavLink } from 'react-router-dom';
+import Logo from './Logo';
+import { nav } from '@/common/constants/nav';
+import { INav } from '@/common/interface/nav';
+import Container from './Container';
 
 const FooterContainer = styled.footer`
   background-color: #171717;
@@ -147,7 +148,7 @@ const ContactInfo = styled.p`
 `;
 
 function Footer() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -155,7 +156,7 @@ function Footer() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log("Submitted email:", email);
+    console.log('Submitted email:', email);
   };
 
   return (

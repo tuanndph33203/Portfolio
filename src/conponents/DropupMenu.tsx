@@ -1,7 +1,7 @@
-import { IconProps } from "@/common/interface/settingIcon";
-import { ArrowUp, Globe, Settings, Sun } from "lucide-react";
-import { useState } from "react";
-import styled, { keyframes, css } from "styled-components";
+import { IconProps } from '@/common/interface/settingIcon';
+import { ArrowUp, Globe, MessageSquareMore, Settings, Sun } from 'lucide-react';
+import { useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 
 const rotate = keyframes`
   from {
@@ -42,7 +42,7 @@ const StyledButton = styled.button`
     rgba(0, 212, 255, 1) 100%
   );
   display: flex;
-  padding: 2px;
+  padding: 5px;
   border-radius: 50%;
   cursor: pointer;
   border-color: transparent;
@@ -91,6 +91,9 @@ function DropupMenu() {
     setIsOpen(!isOpen);
   };
 
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -107,18 +110,18 @@ function DropupMenu() {
           onMouseLeave={() => setIsOpen(false)}
         >
           <StyledButton>
-            <Globe size={34} color="white" />
+            <MessageSquareMore size={40} color="white" />
           </StyledButton>
           <StyledButton>
-            <Sun size={34} color="orange" />
+            <Sun size={40} color="orange" />
           </StyledButton>
-          <StyledButton>
-            <ArrowUp size={34} color="white" />
+          <StyledButton onClick={handleScrollToTop}>
+            <ArrowUp size={40} color="white" />
           </StyledButton>
         </DropupContent>
       )}
       <SettingsIcon
-        size={40}
+        size={53}
         isOpen={isOpen}
         isHovered={isHovered}
         onClick={handleButtonClick}

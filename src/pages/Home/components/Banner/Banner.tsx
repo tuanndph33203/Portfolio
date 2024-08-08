@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import CardBanner from "./Card/CardService";
-import { BannerEffect1 } from "@/assets";
-import { banner } from "@/common/constants";
-import { IBaner } from "@/common/interface";
+import styled from 'styled-components';
+import CardBanner from '../Card/CardService';
+import { BannerEffect1 } from '@/assets';
+import { banner } from '@/common/constants';
+import { IBaner } from '@/common/interface';
 
 const ContainerBanner = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ const BackgroundImage = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url("/src/assets/banner/Frame 58.png");
+  background-image: url('/src/assets/banner/Frame 58.png');
   background-size: cover;
   background-position: center;
   border-radius: 50px;
@@ -66,7 +66,7 @@ const Main = styled.div`
 
 const Banner = () => {
   return (
-    <ContainerBanner>
+    <ContainerBanner id="service">
       <BackgroundImage />
       <ImageBanner src={BannerEffect1} />
       <ContentContainer>

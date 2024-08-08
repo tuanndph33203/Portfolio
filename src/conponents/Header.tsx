@@ -1,9 +1,9 @@
-import { nav } from "@/common/constants/nav";
-import { INav } from "@/common/interface/nav";
-import React from "react";
-import { NavLink } from "react-router-dom";
-import styled from "styled-components";
-import Logo from "./Logo";
+import { nav } from '@/common/constants/nav';
+import { INav } from '@/common/interface/nav';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import Logo from './Logo';
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -37,6 +37,7 @@ const NavItem = styled.li`
 
 const StyledNavLink = styled(NavLink)`
   color: #ffffff;
+  background-color: transparent;
   text-decoration: none;
   padding: 16px 20px;
   border-radius: 30px;
@@ -55,13 +56,24 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function Header() {
+  const handleScrollToElement = (elementId: string) => { 
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <HeaderContainer>
       <NavList>
         {nav.map((option: INav, index: number) => (
           <React.Fragment key={index}>
             <NavItem key={option.name}>
-              <StyledNavLink to={option.link}>{option.name}</StyledNavLink>
+              <StyledNavLink
+                to={option.link}
+                onClick={() => handleScrollToElement(option.element)}
+              >
+                {option.name}
+              </StyledNavLink>
             </NavItem>
             {index === 2 && <Logo hidden={true}></Logo>}
           </React.Fragment>
