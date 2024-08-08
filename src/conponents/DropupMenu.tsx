@@ -83,7 +83,7 @@ const SettingsIcon = styled(Settings)<IconProps>`
   }
 `;
 
-function DropupMenu() {
+function DropupMenu({ onOpen }: { onOpen: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -109,7 +109,7 @@ function DropupMenu() {
           onMouseEnter={() => setIsOpen(true)}
           onMouseLeave={() => setIsOpen(false)}
         >
-          <StyledButton>
+          <StyledButton onClick={onOpen}>
             <MessageSquareMore size={40} color="white" />
           </StyledButton>
           <StyledButton>

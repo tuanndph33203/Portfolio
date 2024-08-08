@@ -5,8 +5,8 @@ import Experince from './components/Experince/Experince';
 const Home = () => {
   return (
     <div>
-      <Profile></Profile>
-      <Banner></Banner>
+      <Profile/>
+      <Banner/>
       <Experince />
     </div>
   );

@@ -1,24 +1,24 @@
-import { LogoAuthor } from "@/assets";
-import { useState } from "react";
-import styled from "styled-components";
+import { LogoAuthor } from '@/assets';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 const LogoContainer = styled.div`
   width: max-content;
-  height: 60px;
   display: flex;
   align-items: center;
   justify-content: start;
   cursor: pointer;
 `;
 
-const LogoImage = styled.img`
+const LogoImage = styled.img<{ size?: number }>`
   border-radius: 30px;
+  height: ${({ size }) => (size ? `${size}px` : '60px')};
   object-fit: cover;
   background: white;
 `;
 
 const Author = styled.div<{ isOpen: boolean; hidden: boolean }>`
-  display: ${({ isOpen, hidden }) => (isOpen && !hidden ? "block" : "none")};
+  display: ${({ isOpen, hidden }) => (isOpen && !hidden ? 'block' : 'none')};
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,7 +38,7 @@ const Author = styled.div<{ isOpen: boolean; hidden: boolean }>`
   }
 `;
 
-const Logo = ({ hidden }: { hidden: boolean }) => {
+const Logo = ({ hidden, size }: { hidden: boolean; size?: number }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -46,7 +46,7 @@ const Logo = ({ hidden }: { hidden: boolean }) => {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <LogoImage src={LogoAuthor} alt="Logo" />
+      <LogoImage size={size} src={LogoAuthor} alt="Logo" />
       <Author isOpen={isOpen} hidden={hidden}>
         <span>
           Made by <h3>ND.Tuan</h3>
