@@ -1,8 +1,11 @@
 import { Heart, Image, SendHorizontal, X } from 'lucide-react';
 import styled from 'styled-components';
-import Logo from '../Logo';
+import Logo from './Logo';
 import { IPopup } from '@/common/interface/popup';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { IMessage } from '@/common/interface/message';
 
 const PopupOverlay = styled.div<{ visible: boolean }>`
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
@@ -134,88 +137,19 @@ const LogoWrapper = styled.div<{ isAdmin: boolean }>`
   align-items: start;
 `;
 const MessagePopup = ({ onClose, visible }: IPopup) => {
+  const { mutate } = useMutation({
+    mutationKey: ['message'],
+    mutationFn: async () => {
+      const response = await axios.post('http://localhost:3000/api/message', {
+        message,
+      });
+    },
+  });
   const [texting, setTexting] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    {
-      messageId: '1',
-      senderId: 'admin',
-      text: 'Chào An',
-      timestamp: '2024-08-08T09:00:00Z',
-    },
-    {
-      messageId: '2',
-      text: 'Chào Tuân, mình khỏe. Còn bạn thế nào?',
-      timestamp: '2024-08-08T09:01:00Z',
-    },
-    {
-      messageId: '1',
-      senderId: 'admin',
-      text: 'Chào An',
-      timestamp: '2024-08-08T09:00:00Z',
-    },
-    {
-      messageId: '2',
-      text: 'Chào Tuân, mình khỏe. Còn bạn thế nào?',
-      timestamp: '2024-08-08T09:01:00Z',
-    },
-    {
-      messageId: '1',
-      senderId: 'admin',
-      text: 'Chào An',
-      timestamp: '2024-08-08T09:00:00Z',
-    },
-    {
-      messageId: '2',
-      text: 'Chào Tuân, mình khỏe. Còn bạn thế nào?',
-      timestamp: '2024-08-08T09:01:00Z',
-    },
-    {
-      messageId: '1',
-      senderId: 'admin',
-      text: 'Chào An',
-      timestamp: '2024-08-08T09:00:00Z',
-    },
-    {
-      messageId: '2',
-      text: 'Chào Tuân, mình khỏe. Còn bạn thế nào?',
-      timestamp: '2024-08-08T09:01:00Z',
-    },
-    {
-      messageId: '1',
-      senderId: 'admin',
-      text: 'Chào An',
-      timestamp: '2024-08-08T09:00:00Z',
-    },
-    {
-      messageId: '2',
-      text: 'Chào Tuân, mình khỏe. Còn bạn thế nào?',
-      timestamp: '2024-08-08T09:01:00Z',
-    },
-    {
-      messageId: '1',
-      senderId: 'admin',
-      text: 'Chào An',
-      timestamp: '2024-08-08T09:00:00Z',
-    },
-    {
-      messageId: '2',
-      text: 'Chào Tuân, mình khỏe. Còn bạn thế nào?',
-      timestamp: '2024-08-08T09:01:00Z',
-    },
-    {
-      messageId: '1',
-      senderId: 'admin',
-      text: 'Chào An',
-      timestamp: '2024-08-08T09:00:00Z',
-    },
-    {
-      messageId: '2',
-      text: 'Chào Tuân, mình khỏe. Còn bạn thế nào?',
-      timestamp: '2024-08-08T09:01:00Z',
-    },
-  ]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
+
   useEffect(() => {
     if (texting) {
       setHidden(true);
@@ -225,6 +159,11 @@ const MessagePopup = ({ onClose, visible }: IPopup) => {
       }, 500);
     }
   }, [texting]);
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <PopupOverlay visible={visible}>
@@ -238,19 +177,24 @@ const MessagePopup = ({ onClose, visible }: IPopup) => {
         </PopupHeader>
         <PopupContent>
           <MessageContent>
-            {messages.map((msg) => (
-              <MessageWrapper
-                key={msg.messageId}
-                isAdmin={msg.senderId === 'admin'}
-              >
-                <LogoWrapper isAdmin={msg.senderId === 'admin'}>
-                  <Logo size={30} hidden />
-                </LogoWrapper>
-                <Message key={msg.messageId} isAdmin={msg.senderId === 'admin'}>
-                  {msg.text}
-                </Message>
-              </MessageWrapper>
-            ))}
+            {messages &&
+              messages.map((msg: IMessage) => (
+                <MessageWrapper
+                  key={msg.messageId}
+                  isAdmin={msg.senderId === 'admin'}
+                >
+                  <LogoWrapper isAdmin={msg.senderId === 'admin'}>
+                    <Logo size={30} hidden />
+                  </LogoWrapper>
+                  <Message
+                    key={msg.messageId}
+                    isAdmin={msg.senderId === 'admin'}
+                  >
+                    {msg.text}
+                  </Message>
+                  <div ref={messageEndRef} />
+                </MessageWrapper>
+              ))}
           </MessageContent>
           <ToolContent>
             <IconImage texting={texting} hidden={hidden}>
