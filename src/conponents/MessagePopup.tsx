@@ -2,10 +2,11 @@ import { Heart, Image, SendHorizontal, X } from 'lucide-react';
 import styled from 'styled-components';
 import Logo from './Logo';
 import { IPopup } from '@/common/interface/popup';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { IMessage } from '@/common/interface/message';
+import { UserIdContext } from '@/context/UserContext';
 
 const PopupOverlay = styled.div<{ visible: boolean }>`
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
@@ -137,10 +138,12 @@ const LogoWrapper = styled.div<{ isAdmin: boolean }>`
   align-items: start;
 `;
 const MessagePopup = ({ onClose, visible }: IPopup) => {
+  const userId: string = useContext(UserIdContext);
   const { mutate } = useMutation({
     mutationKey: ['message'],
     mutationFn: async () => {
       const response = await axios.post('http://localhost:3000/api/message', {
+        userId,
         message,
       });
     },
@@ -165,6 +168,24 @@ const MessagePopup = ({ onClose, visible }: IPopup) => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  const sendMessage = () => {
+    if (message) {
+      setMessages([
+        ...messages,
+        {
+          messageId: Date.now().toString(),
+          senderId: userId,
+          text: message,
+        },
+      ]);
+      setMessage('');
+    }
+  };
+  const handleEnter = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  };
   return (
     <PopupOverlay visible={visible}>
       <PopupContainer>
@@ -204,6 +225,8 @@ const MessagePopup = ({ onClose, visible }: IPopup) => {
               onFocus={() => setTexting(true)}
               onBlur={() => setTexting(false)}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={handleEnter}
+              value={message}
               type="text"
               placeholder="Type your message here..."
             />
@@ -214,7 +237,12 @@ const MessagePopup = ({ onClose, visible }: IPopup) => {
                 color="white"
                 size={30}
               />
-              <SendIcon message={message} fill="#6201f4" color="#6201f4" />
+              <SendIcon
+                onClick={sendMessage}
+                message={message}
+                fill="#6201f4"
+                color="#6201f4"
+              />
             </SendContainer>
           </ToolContent>
         </PopupContent>
